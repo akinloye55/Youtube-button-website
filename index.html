@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My YouTube Button Website</title>
+
+    <style>
+        body {
+            background: #181818;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px 15px;
+        }
+
+        .container {
+            background: #282828;
+            max-width: 350px;
+            margin: auto;
+            padding: 30px 15px;
+            border-radius: 15px;
+        }
+
+        h1 {
+            color: red;
+        }
+
+        button {
+            padding: 12px 20px;
+            margin: 8px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .subscribe {
+            background: red;
+            color: white;
+        }
+
+        .like {
+            background: #444;
+            color: white;
+        }
+
+        .share {
+            background: #444;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>▶ YouTube</h1>
+
+        <h2>Welcome to My Channel</h2>
+
+        <p>Support my channel below!</p>
+
+        <button class="like" onclick="likeVideo()">👍 Like</button>
+
+        <button class="subscribe" onclick="subscribe()">Subscribe</button>
+
+        <button onclick="notify()">🔔 Bell</button>
+
+        <button class="share" onclick="shareVideo()">Share</button>
+
+        <h3 id="message">Welcome!</h3>
+
+    </div>
+
+    <script>
+        function likeVideo() {
+            document.getElementById("message").innerHTML =
+            "You liked this video!";
+        }
+
+        function subscribe() {
+            document.getElementById("message").innerHTML =
+            "Thank you for subscribing!";
+        }
+
+        function notify() {
+            document.getElementById("message").innerHTML =
+            "Notifications turned on!";
+        }
+
+        function shareVideo() {
+            document.getElementById("message").innerHTML =
+            "Thanks for sharing!";
+        }
+    </script>
+
+</body>
+</html>
