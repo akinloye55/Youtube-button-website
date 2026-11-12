@@ -2,100 +2,289 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My YouTube Button Website</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            background: #181818;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px 15px;
-        }
+<title>My YouTube Channel</title>
 
-        .container {
-            background: #282828;
-            max-width: 350px;
-            margin: auto;
-            padding: 30px 15px;
-            border-radius: 15px;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        h1 {
-            color: red;
-        }
+body {
+    margin: 0;
+    background: #0f0f0f;
+    color: white;
+    font-family: Arial, sans-serif;
+}
 
-        button {
-            padding: 12px 20px;
-            margin: 8px;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 16px;
-        }
+header {
+    background: #202020;
+    padding: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        .subscribe {
-            background: red;
-            color: white;
-        }
+.logo {
+    color: red;
+    font-size: 25px;
+    font-weight: bold;
+}
 
-        .like {
-            background: #444;
-            color: white;
-        }
+.search {
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #555;
+    background: #333;
+    color: white;
+    width: 45%;
+}
 
-        .share {
-            background: #444;
-            color: white;
-        }
-    </style>
+.container {
+    max-width: 900px;
+    margin: 25px auto;
+    padding: 15px;
+}
+
+.video {
+    background: linear-gradient(135deg, #600000, #171717);
+    height: 230px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 65px;
+}
+
+h2 {
+    margin-top: 25px;
+}
+
+button {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 25px;
+    margin: 6px 3px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.like {
+    background: #333;
+    color: white;
+}
+
+.subscribe {
+    background: red;
+    color: white;
+}
+
+.subscribed {
+    background: #555;
+    color: white;
+}
+
+.other {
+    background: #333;
+    color: white;
+}
+
+.comment-box {
+    margin-top: 30px;
+}
+
+input {
+    padding: 13px;
+    width: 70%;
+    background: #292929;
+    border: 1px solid #555;
+    color: white;
+    border-radius: 8px;
+}
+
+.comment {
+    background: #222;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 8px;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: gray;
+}
+
+@media(max-width: 500px) {
+    .container {
+        padding: 12px;
+    }
+
+    .video {
+        height: 180px;
+    }
+
+    input {
+        width: 100%;
+    }
+}
+</style>
 </head>
 
 <body>
 
-    <div class="container">
+<header>
+    <div class="logo">▶ YouTube</div>
+    <input class="search" type="search"
+    placeholder="Search videos...">
+</header>
 
-        <h1>▶ YouTube</h1>
+<div class="container">
 
-        <h2>Welcome to My Channel</h2>
+    <div class="video">▶</div>
 
-        <p>Support my channel below!</p>
+    <h2>Welcome to My Channel</h2>
 
-        <button class="like" onclick="likeVideo()">👍 Like</button>
+    <p>Welcome to my channel!
+    Subscribe and enjoy my videos.</p>
 
-        <button class="subscribe" onclick="subscribe()">Subscribe</button>
+    <h3>
+        👥 Subscribers:
+        <span id="subCount">0</span>
+    </h3>
 
-        <button onclick="notify()">🔔 Bell</button>
+    <button class="like" onclick="likeVideo()">
+        👍 Like <span id="likeCount">0</span>
+    </button>
 
-        <button class="share" onclick="shareVideo()">Share</button>
+    <button id="subButton"
+    class="subscribe" onclick="subscribe()">
+        Subscribe
+    </button>
 
-        <h3 id="message">Welcome!</h3>
+    <button class="other" onclick="notify()">
+        🔔 Notifications
+    </button>
+
+    <button class="other" onclick="shareVideo()">
+        Share
+    </button>
+
+    <p id="message">Welcome to my channel!</p>
+
+    <hr>
+
+    <div class="comment-box">
+
+        <h2>Comments</h2>
+
+        <input id="commentInput"
+        type="text" placeholder="Write a comment...">
+
+        <button class="subscribe"
+        onclick="addComment()">Post</button>
+
+        <div id="comments"></div>
 
     </div>
 
-    <script>
-        function likeVideo() {
-            document.getElementById("message").innerHTML =
-            "You liked this video!";
-        }
+</div>
 
-        function subscribe() {
-            document.getElementById("message").innerHTML =
-            "Thank you for subscribing!";
-        }
+<footer>
+    My YouTube Website © 2026
+</footer>
 
-        function notify() {
-            document.getElementById("message").innerHTML =
-            "Notifications turned on!";
-        }
+<script>
 
-        function shareVideo() {
-            document.getElementById("message").innerHTML =
-            "Thanks for sharing!";
-        }
-    </script>
+let likes = 0;
+let subscribers = 0;
+let isSubscribed = false;
+
+function likeVideo() {
+    likes++;
+
+    document.getElementById("likeCount")
+    .innerText = likes;
+
+    document.getElementById("message")
+    .innerText = "Thank you for liking!";
+}
+
+function subscribe() {
+
+    if (!isSubscribed) {
+        subscribers++;
+        isSubscribed = true;
+
+        document.getElementById("subButton")
+        .innerText = "Subscribed";
+
+        document.getElementById("subButton")
+        .className = "subscribed";
+
+        document.getElementById("message")
+        .innerText = "Thank you for subscribing!";
+    }
+
+    else {
+        subscribers--;
+        isSubscribed = false;
+
+        document.getElementById("subButton")
+        .innerText = "Subscribe";
+
+        document.getElementById("subButton")
+        .className = "subscribe";
+
+        document.getElementById("message")
+        .innerText = "You unsubscribed.";
+    }
+
+    document.getElementById("subCount")
+    .innerText = subscribers;
+}
+
+function notify() {
+    document.getElementById("message")
+    .innerText = "Notifications turned on!";
+}
+
+function shareVideo() {
+    if (navigator.share) {
+        navigator.share({
+            title: "My YouTube Channel",
+            url: window.location.href
+        });
+    } else {
+        document.getElementById("message")
+        .innerText = "Copy this website link to share!";
+    }
+}
+
+function addComment() {
+
+    let input = document.getElementById("commentInput");
+
+    if (input.value.trim() === "") {
+        alert("Please write a comment first!");
+        return;
+    }
+
+    let newComment = document.createElement("div");
+
+    newComment.className = "comment";
+    newComment.textContent = input.value;
+
+    document.getElementById("comments")
+    .prepend(newComment);
+
+    input.value = "";
+}
+
+</script>
 
 </body>
 </html>
+
