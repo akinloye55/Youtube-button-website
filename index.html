@@ -327,7 +327,7 @@ function publishVideo() {
     }
 
     video.type = "file";
-    video.source = URL.createObjectURL(file);
+    video.source = selectedfileURL;
   } else {
     const id = getYouTubeID(link);
 
