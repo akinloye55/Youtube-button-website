@@ -393,6 +393,9 @@ function renderVideos() {
     details.textContent = video.description;
 
     card.append(player, heading, details);
+if (video.type === "file") {
+    player.load();
+}
     grid.appendChild(card);
   });
 }
