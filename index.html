@@ -374,7 +374,9 @@ function renderVideos() {
     if (video.type === "file") {
       player = document.createElement("video");
       player.src = video.source;
-      player.controls = true;
+      player.controls=true;
+      player.playInline = true;
+      player.preload = "auto";
     } else {
       player = document.createElement("iframe");
       player.src = "https://www.youtube-nocookie.com/embed/" + video.source;
