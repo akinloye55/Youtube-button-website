@@ -4,131 +4,157 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>IMOLEISLAM</title>
+<title>IMOLEISLAM | Video Platform</title>
 
 <style>
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
-    margin: 0;
-    background: #0f0f0f;
-    color: white;
-    font-family: Arial, sans-serif;
+  margin: 0;
+  background: #0f0f0f;
+  color: white;
+  font-family: Arial, sans-serif;
 }
 
 header {
-    background: #202020;
-    padding: 18px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  background: #202020;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .logo {
-    color: red;
-    font-size: 25px;
-    font-weight: bold;
+  color: #ff3030;
+  font-size: 23px;
+  font-weight: bold;
 }
 
 .search {
-    padding: 10px;
-    border-radius: 20px;
-    border: 1px solid #555;
-    background: #333;
-    color: white;
-    width: 45%;
+  padding: 12px;
+  border-radius: 25px;
+  border: 1px solid #555;
+  background: #333;
+  color: white;
+  flex: 1;
+  min-width: 140px;
 }
 
-.container {
-    max-width: 900px;
-    margin: 25px auto;
-    padding: 15px;
-}
-
-.video {
-    background: linear-gradient(135deg, #600000, #171717);
-    height: 230px;
-    border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 65px;
-}
-
-h2 {
-    margin-top: 25px;
+nav {
+  padding: 12px;
+  background: #181818;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 button {
-    padding: 12px 18px;
-    border: none;
-    border-radius: 25px;
-    margin: 6px 3px;
-    cursor: pointer;
-    font-weight: bold;
+  padding: 11px 16px;
+  border: none;
+  border-radius: 22px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
-.like {
-    background: #333;
-    color: white;
+nav button, .secondary {
+  background: #333;
+  color: white;
 }
 
-.subscribe {
-    background: red;
-    color: white;
+.primary {
+  background: #ff3030;
+  color: white;
 }
 
-.subscribed {
-    background: #555;
-    color: white;
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 18px;
 }
 
-.other {
-    background: #333;
-    color: white;
+.banner {
+  background: linear-gradient(120deg, #690000, #202020);
+  padding: 35px 20px;
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 25px;
 }
 
-.comment-box {
-    margin-top: 30px;
+.banner h1 { margin: 0 0 10px; }
+
+.panel {
+  background: #1d1d1d;
+  padding: 18px;
+  border-radius: 12px;
+  margin-bottom: 25px;
 }
 
-input {
-    padding: 13px;
-    width: 70%;
-    background: #292929;
-    border: 1px solid #555;
-    color: white;
-    border-radius: 8px;
+input, textarea {
+  width: 100%;
+  padding: 13px;
+  margin: 8px 0 14px;
+  background: #292929;
+  border: 1px solid #555;
+  border-radius: 8px;
+  color: white;
 }
 
-.comment {
-    background: #222;
-    padding: 12px;
-    margin-top: 10px;
-    border-radius: 8px;
+textarea {
+  min-height: 85px;
+  resize: vertical;
 }
+
+.preview {
+  width: 100%;
+  max-height: 350px;
+  background: black;
+  border-radius: 10px;
+  margin: 12px 0;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
+}
+
+.video-card {
+  background: #202020;
+  border-radius: 12px;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.video-card video,
+.video-card iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: none;
+  border-radius: 8px;
+  background: black;
+}
+
+.video-card h3 { margin-bottom: 5px; }
+
+.video-card p {
+  color: #bbb;
+  font-size: 14px;
+}
+
+.hidden { display: none; }
 
 footer {
-    text-align: center;
-    padding: 25px;
-    color: gray;
+  text-align: center;
+  padding: 25px;
+  color: #999;
 }
 
 @media(max-width: 500px) {
-    .container {
-        padding: 12px;
-    }
-
-    .video {
-        height: 180px;
-    }
-
-    input {
-        width: 100%;
-    }
+  .container { padding: 12px; }
+  header { align-items: stretch; }
+  .logo { width: 100%; }
 }
 </style>
 </head>
@@ -136,155 +162,250 @@ footer {
 <body>
 
 <header>
-    <div class="logo">▶ YouTube</div>
-    <input class="search" type="search"
-    placeholder="Search videos...">
+  <div class="logo">▶ IMOLEISLAM</div>
+  <input class="search" id="search"
+    type="search" placeholder="Search videos..."
+    oninput="searchVideos()">
 </header>
 
-<div class="container">
+<nav>
+  <button onclick="showHome()">Home</button>
+  <button onclick="showUpload()">Upload Video</button>
+</nav>
 
-    <div class="video">▶</div>
+<main class="container">
 
-    <h2>Welcome to IMOLEISLAM</h2>
+<section id="homePage">
+  <div class="banner">
+    <h1>IMOLEISLAM</h1>
+    <p>Welcome to our video platform!</p>
+    <p>Islamic videos, stories and entertainment.</p>
+    <button class="primary" onclick="showUpload()">
+      + Upload Video
+    </button>
+  </div>
 
-    <p>Welcome to my channel IMOLEISLAM!
-    Subscribe and enjoy Islamic videos.</p>
+  <h2>Our Videos</h2>
+  <div id="videoGrid" class="video-grid">
+    <p id="emptyMessage">No videos published yet.</p>
+  </div>
+</section>
 
-    <h3>
-        👥 Subscribers:
-        <span id="subCount">0</span>
-    </h3>
+<section id="uploadPage" class="hidden">
+  <div class="panel">
+    <h2>Upload a Video</h2>
+    <p>Choose a video from your phone or add a YouTube link.</p>
 
-    <button class="like" onclick="likeVideo()">
-        👍 Like <span id="likeCount">0</span>
+    <label>Video title</label>
+    <input id="videoTitle" placeholder="Enter video title">
+
+    <label>Video description</label>
+    <textarea id="videoDescription"
+      placeholder="Describe your video..."></textarea>
+
+    <h3>Option 1: Upload from your device</h3>
+    <input id="videoFile" type="file"
+      accept="video/*" onchange="previewFile()">
+
+    <video id="filePreview" class="preview hidden"
+      controls></video>
+
+    <h3>Option 2: Add YouTube video link</h3>
+    <input id="youtubeLink"
+      placeholder="Paste YouTube video link here">
+
+    <button class="primary" onclick="publishVideo()">
+      Publish Video
     </button>
 
-    <button id="subButton"
-    class="subscribe" onclick="subscribe()">
-        Subscribe
+    <button class="secondary" onclick="showHome()">
+      Cancel
     </button>
 
-    <button class="other" onclick="notify()">
-        🔔 Notifications
-    </button>
+    <p id="status"></p>
+  </div>
+</section>
 
-    <button class="other" onclick="shareVideo()">
-        Share
-    </button>
-
-    <p id="message">Welcome to my IMOLEISLAM!</p>
-
-    <hr>
-
-    <div class="comment-box">
-
-        <h2>Comments</h2>
-
-        <input id="commentInput"
-        type="text" placeholder="Write a comment...">
-
-        <button class="subscribe"
-        onclick="addComment()">Post</button>
-
-        <div id="comments"></div>
-
-    </div>
-
-</div>
+</main>
 
 <footer>
-    My YouTube Website © 2026
+  IMOLEISLAM © 2026 | All Rights Reserved
 </footer>
 
 <script>
+let videos = [];
+let selectedFileURL = "";
 
-let likes = 0;
-let subscribers = 0;
-let isSubscribed = false;
-
-function likeVideo() {
-    likes++;
-
-    document.getElementById("likeCount")
-    .innerText = likes;
-
-    document.getElementById("message")
-    .innerText = "Thank you for liking!";
+function showHome() {
+  document.getElementById("homePage").classList.remove("hidden");
+  document.getElementById("uploadPage").classList.add("hidden");
 }
 
-function subscribe() {
+function showUpload() {
+  document.getElementById("homePage").classList.add("hidden");
+  document.getElementById("uploadPage").classList.remove("hidden");
+}
 
-    if (!isSubscribed) {
-        subscribers++;
-        isSubscribed = true;
+function previewFile() {
+  const file = document.getElementById("videoFile").files[0];
+  const preview = document.getElementById("filePreview");
 
-        document.getElementById("subButton")
-        .innerText = "Subscribed";
+  if (!file) return;
 
-        document.getElementById("subButton")
-        .className = "subscribed";
+  if (!file.type.startsWith("video/")) {
+    alert("Please select a video file.");
+    return;
+  }
 
-        document.getElementById("message")
-        .innerText = "Thank you for subscribing!";
+  if (selectedFileURL) URL.revokeObjectURL(selectedFileURL);
+
+  selectedFileURL = URL.createObjectURL(file);
+  preview.src = selectedFileURL;
+  preview.classList.remove("hidden");
+}
+
+function getYouTubeID(link) {
+  try {
+    const url = new URL(link);
+    let id = "";
+
+    if (url.hostname === "youtu.be") {
+      id = url.pathname.slice(1);
+    } else if (
+      url.hostname.includes("youtube.com") ||
+      url.hostname.includes("youtube-nocookie.com")
+    ) {
+      if (url.pathname === "/watch") {
+        id = url.searchParams.get("v") || "";
+      } else if (
+        url.pathname.startsWith("/embed/") ||
+        url.pathname.startsWith("/shorts/")
+      ) {
+        id = url.pathname.split("/")[2] || "";
+      }
     }
 
-    else {
-        subscribers--;
-        isSubscribed = false;
+    return /^[a-zA-Z0-9_-]{11}$/.test(id) ? id : "";
+  } catch {
+    return "";
+  }
+}
 
-        document.getElementById("subButton")
-        .innerText = "Subscribe";
+function publishVideo() {
+  const title = document.getElementById("videoTitle").value.trim();
+  const description =
+    document.getElementById("videoDescription").value.trim();
+  const file = document.getElementById("videoFile").files[0];
+  const link = document.getElementById("youtubeLink").value.trim();
 
-        document.getElementById("subButton")
-        .className = "subscribe";
+  if (!title) {
+    alert("Please enter a video title.");
+    return;
+  }
 
-        document.getElementById("message")
-        .innerText = "You unsubscribed.";
+  if (file && link) {
+    alert("Choose a video file OR a YouTube link, not both.");
+    return;
+  }
+
+  if (!file && !link) {
+    alert("Please select a video or enter a YouTube link.");
+    return;
+  }
+
+  let video = {
+    title,
+    description,
+    type: "",
+    source: ""
+  };
+
+  if (file) {
+    if (!file.type.startsWith("video/")) {
+      alert("Please choose a valid video file.");
+      return;
     }
 
-    document.getElementById("subCount")
-    .innerText = subscribers;
+    video.type = "file";
+    video.source = URL.createObjectURL(file);
+  } else {
+    const id = getYouTubeID(link);
+
+    if (!id) {
+      alert("Please enter a valid YouTube video link.");
+      return;
+    }
+
+    video.type = "youtube";
+    video.source = id;
+  }
+
+  videos.unshift(video);
+  renderVideos();
+
+  document.getElementById("videoTitle").value = "";
+  document.getElementById("videoDescription").value = "";
+  document.getElementById("videoFile").value = "";
+  document.getElementById("youtubeLink").value = "";
+
+  document.getElementById("filePreview").classList.add("hidden");
+  document.getElementById("filePreview").removeAttribute("src");
+  selectedFileURL = "";
+
+  document.getElementById("status").textContent = "Video published!";
+  showHome();
 }
 
-function notify() {
-    document.getElementById("message")
-    .innerText = "Notifications turned on!";
-}
+function renderVideos() {
+  const grid = document.getElementById("videoGrid");
+  grid.innerHTML = "";
 
-function shareVideo() {
-    if (navigator.share) {
-        navigator.share({
-            title: "My YouTube Channel",
-            url: window.location.href
-        });
+  if (videos.length === 0) {
+    grid.innerHTML = "<p>No videos published yet.</p>";
+    return;
+  }
+
+  videos.forEach(video => {
+    const card = document.createElement("article");
+    card.className = "video-card";
+
+    let player;
+
+    if (video.type === "file") {
+      player = document.createElement("video");
+      player.src = video.source;
+      player.controls = true;
     } else {
-        document.getElementById("message")
-        .innerText = "Copy this website link to share!";
-    }
-}
-
-function addComment() {
-
-    let input = document.getElementById("commentInput");
-
-    if (input.value.trim() === "") {
-        alert("Please write a comment first!");
-        return;
+      player = document.createElement("iframe");
+      player.src = "https://www.youtube-nocookie.com/embed/" + video.source;
+      player.title = video.title;
+      player.allow =
+        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      player.allowFullscreen = true;
     }
 
-    let newComment = document.createElement("div");
+    const heading = document.createElement("h3");
+    heading.textContent = video.title;
 
-    newComment.className = "comment";
-    newComment.textContent = input.value;
+    const details = document.createElement("p");
+    details.textContent = video.description;
 
-    document.getElementById("comments")
-    .prepend(newComment);
-
-    input.value = "";
+    card.append(player, heading, details);
+    grid.appendChild(card);
+  });
 }
 
+function searchVideos() {
+  const term = document.getElementById("search").value.toLowerCase();
+
+  document.querySelectorAll(".video-card").forEach(card => {
+    card.classList.toggle(
+      "hidden",
+      !card.textContent.toLowerCase().includes(term)
+    );
+  });
+}
 </script>
 
 </body>
 </html>
-
